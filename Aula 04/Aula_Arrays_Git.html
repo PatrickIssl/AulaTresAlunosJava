@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays Java & Git - Apresentação Profissional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .slide {
+            padding: 60px;
+            min-height: 80vh;
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .slide:last-child {
+            border-bottom: none;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .hero-section {
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            padding: 60px;
+            margin: 40px 0;
+        }
+
+        .course-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .info-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .analogy-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 6px solid #f59e0b;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 6px solid #3b82f6;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            min-width: 0;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 6px solid #10b981;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 6px solid #ef4444;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 15px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 20px 0;
+            overflow-x: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            white-space: pre;
+            border: 1px solid #334155;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+
+        .code-block::before {
+            content: '💻 Código';
+            display: block;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #334155;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .array-visualization {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .array-cell {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1f2937;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .array-cell:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .array-index {
+            font-size: 0.8rem;
+            color: #6b7280;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        ul {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        li::marker {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .command-list {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .command-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .command-code {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+                    @media (max-width: 1024px) {
+            .two-column { 
+                grid-template-columns: 1fr; 
+                gap: 25px; 
+            }
+            .code-block { 
+                font-size: 0.85rem; 
+                padding: 18px; 
+                margin: 15px 0;
+            }
+            .example-box { 
+                padding: 20px; 
+                margin: 15px 0; 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 30px 20px; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            .two-column { grid-template-columns: 1fr; gap: 20px; }
+            .array-cell { width: 60px; height: 60px; font-size: 1rem; }
+            .code-block { font-size: 0.8rem; padding: 15px; }
+            .presentation { margin: 20px; }
+            .example-box { margin: 15px 0; padding: 18px; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-enter {
+            animation: slideEnter 0.6s ease-out;
+        }
+
+        @keyframes slideEnter {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="presentation">
+        <!-- Slide 1: Título -->
+        <div class="slide fade-in">
+            <div class="slide-number">1/17</div>
+            <div class="hero-section">
+                <h1>🚀 Arrays em Java & Git</h1>
+                <p style="font-size: 1.5rem; color: #6b7280; text-align: center; margin-bottom: 40px;">
+                    Dominando estruturas de dados e controle de versão
+                </p>
+                
+                <div class="course-info">
+                    <div class="info-card">
+                        <h4>📊 Nível</h4>
+                        <p>Iniciante/Intermediário</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🎯 Pré-requisitos</h4>
+                        <p>Variáveis, Métodos, If, For</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: O que são Arrays -->
+        <div class="slide">
+            <div class="slide-number">2/17</div>
+            <h2>🎯 O que são Arrays?</h2>
+            
+            <div class="analogy-box">
+                <h3>🏠 Analogia: Prédio de Apartamentos</h3>
+                <p>Imagine um <span class="highlight">prédio com vários apartamentos numerados</span>. Cada apartamento pode guardar um item do mesmo tipo.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>📋 Definição</h3>
+                    <p>Arrays são <span class="highlight">coleções de elementos do mesmo tipo</span>, organizados em posições sequenciais (índices).</p>
+                    
+                    <h3>✨ Características</h3>
+                    <ul>
+                        <li><strong>Tamanho fixo</strong> - definido na criação</li>
+                        <li><strong>Mesmo tipo</strong> - todos elementos iguais</li>
+                        <li><strong>Índice numérico</strong> - começa em 0</li>
+                        <li><strong>Acesso direto</strong> - O(1) por posição</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <div class="array-visualization">
+                        <div class="array-cell">10</div>
+                        <div class="array-cell">25</div>
+                        <div class="array-cell">30</div>
+                        <div class="array-cell">15</div>
+                        <div class="array-cell">40</div>
+                    </div>
+                    <div class="array-index">
+                        <div style="display: flex; justify-content: center; gap: 73px; font-size: 0.9rem;">
+                            <span>[0]</span><span>[1]</span><span>[2]</span><span>[3]</span><span>[4]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Aplicações Reais -->
+        <div class="slide">
+            <div class="slide-number">3/17</div>
+            <h2>🌍 Arrays no Cotidiano</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>🎵 Lista de Músicas</h3>
+                    <p>Playlist do Spotify com 50 músicas ordenadas. Você pode pular para a música 15 diretamente!</p>
+                </div>
+                
+                <div class="example-box">
+                    <h3>📱 Contatos do Celular</h3>
+                    <p>Lista alfabética de contatos. Cada posição guarda um nome e telefone.</p>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🏪 Estoque de Loja</h3>
+                    <p>Produtos numerados de 1 a 1000. Cada código leva diretamente ao produto.</p>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🎮 Pontuação de Jogos</h3>
+                    <p>Top 10 maiores pontuações. Array ordenado do maior para o menor.</p>
+                </div>
+            </div>
+
+            <div class="analogy-box">
+                <h3>💡 Por que usar Arrays?</h3>
+                <p>Organização, acesso rápido, economia de memória e processamento eficiente de grandes quantidades de dados!</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Tipos de Arrays -->
+        <div class="slide">
+            <div class="slide-number">4/17</div>
+            <h2>📊 Tipos de Arrays em Java</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>🔢 Arrays de Números</h3>
+                    <div class="code-block">int[] idades = {18, 25, 30, 45, 22};
+double[] precos = {15.99, 8.50, 120.00};
+float[] notas = {8.5f, 9.2f, 7.8f};</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>📝 Arrays de Texto</h3>
+                    <div class="code-block">String[] nomes = {"João", "Maria", "Pedro"};
+char[] letras = {'A', 'B', 'C', 'D'};</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>✅ Arrays de Booleanos</h3>
+                    <div class="code-block">boolean[] status = {true, false, true, false};
+boolean[] presenca = new boolean[30]; // false por padrão</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🏢 Arrays de Objetos</h3>
+                    <div class="code-block">Scanner[] scanners = new Scanner[3];
+Date[] datas = {new Date(), new Date()};</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Criando Arrays Vazios -->
+        <div class="slide">
+            <div class="slide-number">5/17</div>
+            <h2>📦 Criando Arrays Vazios</h2>
+            
+            <div class="analogy-box">
+                <h3>🏗️ Analogia: Reservando Gavetas</h3>
+                <p>Como reservar <span class="highlight">gavetas vazias</span> em um armário para preencher depois</p>
+            </div>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>📝 Declaração de Arrays Vazios</h3>
+                    <div class="code-block">// Arrays vazios (apenas tamanho)
+int[] numeros = new int[5];        // 5 posições com valor 0
+String[] nomes = new String[3];    // 3 posições com valor null
+double[] precos = new double[10];  // 10 posições com valor 0.0
+boolean[] ativo = new boolean[4];  // 4 posições com valor false
+
+// Valores padrão:
+// - int, double: 0
+// - boolean: false  
+// - String, Object: null</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🔧 Preenchendo Arrays Vazios</h3>
+                    <div class="code-block">// Preenchendo posição por posição
+numeros[0] = 10;
+numeros[1] = 25;
+numeros[2] = 30;
+
+// Preenchendo com loop
+for (int i = 0; i < nomes.length; i++) {
+    nomes[i] = "Nome " + (i + 1);
+}
+
+// Preenchendo com Scanner
+Scanner scanner = new Scanner(System.in);
+for (int i = 0; i < precos.length; i++) {
+    System.out.print("Digite o preço " + (i+1) + ": ");
+    precos[i] = scanner.nextDouble();
+}</div>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>🎯 Exercício Prático</h3>
+                <p>Crie um array vazio de 5 posições e preencha com os nomes dos seus amigos!</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Sintaxe Java -->
+        <div class="slide">
+            <div class="slide-number">6/17</div>
+            <h2>⚙️ Sintaxe em Java</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>📝 Declaração de Arrays</h3>
+                    <div class="code-block">// Método 1: Declaração simples
+int[] numeros;
+String[] nomes;
+
+// Método 2: Declaração com inicialização
+int[] idades = new int[5];
+String[] cidades = new String[10];
+
+// Método 3: Declaração com valores
+int[] pontos = {100, 200, 150, 300};
+String[] cores = {"azul", "verde", "vermelho"};</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🔧 Manipulação de Arrays</h3>
+                    <div class="code-block">// Acessando elementos
+int primeiro = numeros[0];
+String ultimaCor = cores[cores.length - 1];
+
+// Modificando elementos
+idades[2] = 25;
+cidades[0] = "São Paulo";
+
+// Obtendo tamanho
+int tamanho = pontos.length;
+System.out.println("Tamanho: " + tamanho);</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🔄 Percorrendo Arrays</h3>
+                    <div class="code-block">// For tradicional
+for (int i = 0; i < idades.length; i++) {
+    System.out.println("Idade " + i + ": " + idades[i]);
+}
+
+// For-each (enhanced for)
+for (String cor : cores) {
+    System.out.println("Cor: " + cor);
+}
+
+// While
+int i = 0;
+while (i < pontos.length) {
+    System.out.println(pontos[i]);
+    i++;
+}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Arrays Multidimensionais -->
+        <div class="slide">
+            <div class="slide-number">7/17</div>
+            <h2>🏢 Arrays Multidimensionais (Matrizes)</h2>
+            
+            <div class="analogy-box">
+                <h3>🏬 Analogia: Shopping Center</h3>
+                <p>Um <span class="highlight">shopping com vários andares</span>, cada andar tem várias lojas. Localização: [andar][loja]</p>
+            </div>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>📋 Declaração de Matrizes</h3>
+                    <div class="code-block">// Matriz 3x3 (tabuleiro de jogo da velha)
+int[][] tabuleiro = new int[3][3];
+
+// Matriz com valores iniciais
+int[][] matriz = {
+    {1, 2, 3},
+    {4, 5, 6}, 
+    {7, 8, 9}
+};
+
+// Matriz de strings (planilha)
+String[][] planilha = new String[5][4];</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🎯 Acesso e Manipulação</h3>
+                    <div class="code-block">// Acessando elementos
+int valor = matriz[1][2]; // linha 1, coluna 2 = 6
+
+// Modificando elementos  
+tabuleiro[0][0] = 1; // X no canto superior esquerdo
+tabuleiro[1][1] = 2; // O no centro
+
+// Percorrendo matriz completa
+for (int i = 0; i < matriz.length; i++) {
+    for (int j = 0; j < matriz[i].length; j++) {
+        System.out.print(matriz[i][j] + " ");
+    }
+    System.out.println();
+}</div>
+                </div>
+            </div>
+
+            <div class="exercise-box">
+                <h3>🎮 Exemplo: Jogo da Velha</h3>
+                <p>Matriz 3x3 onde cada posição guarda: 0=vazio, 1=X, 2=O</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Métodos Úteis -->
+        <div class="slide">
+            <div class="slide-number">8/17</div>
+            <h2>🛠️ Métodos Úteis para Arrays</h2>
+            
+            <div class="code-block">import java.util.Arrays;
+import java.util.Collections;
+
+public class MetodosArrays {
+    public static void main(String[] args) {
+        int[] numeros = {64, 34, 25, 12, 22, 11, 90};
+        
+        // 1. Imprimir array
+        System.out.println("Array: " + Arrays.toString(numeros));
+        
+        // 2. Ordenar array
+        Arrays.sort(numeros);
+        System.out.println("Ordenado: " + Arrays.toString(numeros));
+        
+        // 3. Buscar elemento (array deve estar ordenado)
+        int posicao = Arrays.binarySearch(numeros, 25);
+        System.out.println("Posição do 25: " + posicao);
+        
+        // 4. Preencher array
+        int[] zeros = new int[5];
+        Arrays.fill(zeros, 10);
+        System.out.println("Preenchido: " + Arrays.toString(zeros));
+        
+        // 5. Copiar array
+        int[] copia = Arrays.copyOf(numeros, numeros.length);
+        System.out.println("Cópia: " + Arrays.toString(copia));
+        
+        // 6. Comparar arrays
+        boolean iguais = Arrays.equals(numeros, copia);
+        System.out.println("São iguais: " + iguais);
+    }
+}</div>
+        </div>
+
+        <!-- Slide 9: Exercícios Práticos -->
+        <div class="slide">
+            <div class="slide-number">9/22</div>
+            <h2>💪 Exercícios Práticos - Arrays</h2>
+            
+            <div class="grid">
+                <div class="exercise-box">
+                    <h3>🎯 Exercício 1: Notas da Turma</h3>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia 5 notas de alunos</li>
+                        <li>Calcule e exiba a média</li>
+                        <li>Mostre quantos alunos ficaram acima da média</li>
+                        <li>Exiba a maior e menor nota</li>
+                    </ul>
+                </div>
+                
+                <div class="exercise-box">
+                    <h3>🔍 Exercício 2: Busca em Array</h3>
+                    <p>Implemente um sistema que:</p>
+                    <ul>
+                        <li>Tenha um array de nomes pré-definido</li>
+                        <li>Peça um nome para o usuário</li>
+                        <li>Busque e informe se o nome existe</li>
+                        <li>Se existir, mostre a posição</li>
+                    </ul>
+                </div>
+                
+                <div class="exercise-box">
+                    <h3>📊 Exercício 3: Matriz de Vendas</h3>
+                    <p>Crie uma matriz 4x3 representando:</p>
+                    <ul>
+                        <li>4 vendedores x 3 meses</li>
+                        <li>Calcule total por vendedor</li>
+                        <li>Calcule total por mês</li>
+                        <li>Encontre o melhor vendedor</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Dicas Importantes</h3>
+                <ul>
+                    <li><strong>Índices:</strong> Sempre começam em 0 e vão até length-1</li>
+                    <li><strong>ArrayIndexOutOfBoundsException:</strong> Cuidado com índices inválidos</li>
+                    <li><strong>NullPointerException:</strong> Inicialize arrays antes de usar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: Introdução ao ArrayList -->
+        <div class="slide">
+            <div class="slide-number">10/22</div>
+            <h2>📋 ArrayList - Listas Dinâmicas</h2>
+            
+            <div class="analogy-box">
+                <h3>🎒 Analogia: Mochila Mágica</h3>
+                <p>Imagine uma <span class="highlight">mochila que cresce automaticamente</span> quando você adiciona mais itens. Não precisa definir o tamanho antes!</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>🆚 Array vs ArrayList</h3>
+                    <div class="warning-box">
+                        <h4>🔒 Array Tradicional:</h4>
+                        <ul>
+                            <li><strong>Tamanho fixo</strong> - definido na criação</li>
+                            <li><strong>Mais rápido</strong> - acesso direto</li>
+                            <li><strong>Menos memória</strong> - sem overhead</li>
+                            <li><strong>Primitivos</strong> - int, double, etc.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>🚀 ArrayList:</h4>
+                        <ul>
+                            <li><strong>Tamanho dinâmico</strong> - cresce automaticamente</li>
+                            <li><strong>Métodos úteis</strong> - add, remove, contains</li>
+                            <li><strong>Flexível</strong> - adiciona/remove facilmente</li>
+                            <li><strong>Objetos</strong> - String, Integer, etc.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="code-block">import java.util.ArrayList;
+
+// Array tradicional - FIXO
+int[] numeros = new int[5]; // Só 5 elementos!
+
+// ArrayList - DINÂMICO  
+ArrayList&lt;Integer&gt; lista = new ArrayList&lt;&gt;();
+lista.add(10);    // Adiciona
+lista.add(20);    // Cresce automaticamente
+lista.add(30);    // Sem limite!
+
+// Tamanho atual
+System.out.println("Tamanho: " + lista.size());</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Sintaxe ArrayList -->
+        <div class="slide">
+            <div class="slide-number">11/22</div>
+            <h2>⚙️ Sintaxe do ArrayList</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>📝 Declaração e Criação</h3>
+                    <div class="code-block">import java.util.ArrayList;
+
+// Diferentes tipos de ArrayList
+ArrayList&lt;String&gt; nomes = new ArrayList&lt;&gt;();
+ArrayList&lt;Integer&gt; idades = new ArrayList&lt;&gt;();
+ArrayList&lt;Double&gt; precos = new ArrayList&lt;&gt;();
+ArrayList&lt;Boolean&gt; status = new ArrayList&lt;&gt;();
+
+// Com valores iniciais
+ArrayList&lt;String&gt; cores = new ArrayList&lt;&gt;(
+    Arrays.asList("azul", "verde", "vermelho")
+);</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>➕ Adicionando Elementos</h3>
+                    <div class="code-block">// Adicionar no final
+nomes.add("João");
+nomes.add("Maria");
+nomes.add("Pedro");
+
+// Adicionar em posição específica
+nomes.add(1, "Ana"); // Posição 1
+
+// Adicionar múltiplos
+ArrayList&lt;String&gt; novos = Arrays.asList("Carlos", "Luiza");
+nomes.addAll(novos);
+
+System.out.println(nomes); // [João, Ana, Maria, Pedro, Carlos, Luiza]</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🔍 Acessando e Buscando</h3>
+                    <div class="code-block">// Acessar por índice
+String primeiro = nomes.get(0);        // "João"
+String ultimo = nomes.get(nomes.size() - 1); // "Luiza"
+
+// Buscar elemento
+boolean temMaria = nomes.contains("Maria");  // true
+int posicao = nomes.indexOf("Pedro");        // 3
+
+// Verificar se está vazio
+boolean vazio = nomes.isEmpty();  // false
+int tamanho = nomes.size();       // 6</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🗑️ Removendo Elementos</h3>
+                    <div class="code-block">// Remover por índice
+String removido = nomes.remove(0);  // Remove "João"
+
+// Remover por valor
+boolean sucesso = nomes.remove("Maria");  // true
+
+// Remover todos
+nomes.clear();  // Lista fica vazia
+
+// Remover múltiplos
+ArrayList&lt;String&gt; paraRemover = Arrays.asList("Ana", "Pedro");
+nomes.removeAll(paraRemover);</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Quando Usar Cada Um -->
+        <div class="slide">
+            <div class="slide-number">12/22</div>
+            <h2>🎯 Array vs ArrayList - Quando Usar?</h2>
+            
+            <div class="two-column">
+                <div class="example-box">
+                    <h3>🔒 Use Arrays Quando:</h3>
+                    <ul>
+                        <li><strong>Tamanho conhecido</strong> - Ex: dias da semana (7)</li>
+                        <li><strong>Performance crítica</strong> - jogos, cálculos pesados</li>
+                        <li><strong>Tipos primitivos</strong> - int, double, boolean</li>
+                        <li><strong>Matrizes</strong> - int[][] tabuleiro</li>
+                        <li><strong>Memória limitada</strong> - sistemas embarcados</li>
+                    </ul>
+                    
+                    <div class="code-block">// Exemplos ideais para Arrays:
+int[] diasMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+double[] coordenadas = {10.5, 20.3}; // x, y
+boolean[] respostas = new boolean[10]; // Quiz de 10 questões</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🚀 Use ArrayList Quando:</h3>
+                    <ul>
+                        <li><strong>Tamanho variável</strong> - lista de usuários</li>
+                        <li><strong>Adicionar/remover</strong> - carrinho de compras</li>
+                        <li><strong>Busca frequente</strong> - contains(), indexOf()</li>
+                        <li><strong>Facilidade de uso</strong> - métodos prontos</li>
+                        <li><strong>Objetos complexos</strong> - String, custom classes</li>
+                    </ul>
+                    
+                    <div class="code-block">// Exemplos ideais para ArrayList:
+ArrayList&lt;String&gt; carrinho = new ArrayList&lt;&gt;(); // Cresce conforme compra
+ArrayList&lt;Usuario&gt; usuarios = new ArrayList&lt;&gt;(); // Lista de cadastros
+ArrayList&lt;String&gt; historico = new ArrayList&lt;&gt;(); // Histórico de navegação</div>
+                </div>
+            </div>
+
+            <div class="analogy-box">
+                <h3>🏠 Analogia Prática</h3>
+                <div class="grid">
+                    <div>
+                        <h4>🔒 Array = Apartamento</h4>
+                        <p><span class="highlight">Tamanho fixo</span>, mais barato, ideal quando você sabe exatamente quantos quartos precisa.</p>
+                    </div>
+                    <div>
+                        <h4>🚀 ArrayList = Casa Expansível</h4>
+                        <p><span class="highlight">Pode adicionar quartos</span>, mais caro, ideal quando a família pode crescer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Exercício Sistema de Notas -->
+        <div class="slide">
+            <div class="slide-number">13/22</div>
+            <h2>💻 Exercício 1: Sistema de Notas</h2>
+            
+            <div class="exercise-box">
+                <h3>🎯 Objetivo: Complete o código do sistema de notas</h3>
+                <p>Preencha as partes marcadas com <code>// TODO:</code></p>
+            </div>
+            
+            <div class="code-block">import java.util.ArrayList;
+import java.util.Scanner;
+
+public class SistemaNotas {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // TODO: Criar ArrayList para armazenar as notas
+        ArrayList&lt;______&gt; notas = new ArrayList&lt;&gt;();
+        
+        System.out.println("=== SISTEMA DE NOTAS ===");
+        
+        // TODO: Loop para ler 5 notas do usuário
+        for (int i = 0; i &lt; ___; i++) {
+            System.out.print("Digite a nota " + (i + 1) + ": ");
+            double nota = scanner.nextDouble();
+            
+            // TODO: Adicionar nota ao ArrayList
+            notas.______(nota);
+        }
+        
+        // TODO: Calcular média das notas
+        double soma = 0;
+        for (______ nota : notas) {
+            soma += nota;
+        }
+        double media = soma / notas.______();
+        
+        // TODO: Encontrar maior e menor nota
+        double maior = notas.get(0);
+        double menor = notas.get(0);
+        
+        for (double nota : notas) {
+            if (nota > maior) maior = _____;
+            if (nota &lt; menor) menor = _____;
+        }
+        
+        // TODO: Contar notas acima da média
+        int acimaDaMedia = 0;
+        for (double nota : notas) {
+            if (nota > ______) {
+                acimaDaMedia++;
+            }
+        }
+        
+        // Exibir resultados
+        System.out.println("\n=== RESULTADOS ===");
+        System.out.println("Notas: " + notas);
+        System.out.println("Média: " + String.format("%.2f", media));
+        System.out.println("Maior nota: " + maior);
+        System.out.println("Menor nota: " + menor);
+        System.out.println("Notas acima da média: " + acimaDaMedia);
+    }
+}</div>
+
+            <div class="warning-box">
+                <h3>💡 Pistas:</h3>
+                <ul>
+                    <li><strong>Linha 8:</strong> Que tipo de dados guarda notas?</li>
+                    <li><strong>Linha 12:</strong> Quantas notas queremos ler?</li>
+                    <li><strong>Linha 16:</strong> Método para adicionar elemento</li>
+                    <li><strong>Linha 20:</strong> Tipo da variável no for-each</li>
+                    <li><strong>Linha 23:</strong> Método para obter tamanho</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 14: Exercício Lista de Compras -->
+        <div class="slide">
+            <div class="slide-number">14/22</div>
+            <h2>🛒 Exercício 2: Lista de Compras</h2>
+            
+            <div class="exercise-box">
+                <h3>🎯 Objetivo: Complete o sistema de lista de compras</h3>
+                <p>Implemente as funcionalidades marcadas com <code>// TODO:</code></p>
+            </div>
+            
+            <div class="code-block">import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ListaCompras {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // TODO: Criar ArrayList para itens da lista
+        ArrayList&lt;______&gt; lista = new ArrayList&lt;&gt;();
+        
+        // Adicionar alguns itens iniciais
+        lista.add("Leite");
+        lista.add("Pão");
+        lista.add("Ovos");
+        
+        int opcao;
+        do {
+            System.out.println("\n=== LISTA DE COMPRAS ===");
+            System.out.println("1. Ver lista");
+            System.out.println("2. Adicionar item");
+            System.out.println("3. Remover item");
+            System.out.println("4. Buscar item");
+            System.out.println("5. Limpar lista");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar buffer
+            
+            switch (opcao) {
+                case 1:
+                    // TODO: Exibir todos os itens da lista com índices
+                    System.out.println("\n📋 Sua lista de compras:");
+                    if (lista.________()) {
+                        System.out.println("Lista vazia!");
+                    } else {
+                        for (int i = 0; i &lt; lista.______(); i++) {
+                            System.out.println((i + 1) + ". " + lista.______(i));
+                        }
+                    }
+                    break;</div>
+
+            <div class="warning-box">
+                <h3>💡 Métodos para usar:</h3>
+                <ul>
+                    <li><code>isEmpty()</code> - verifica se está vazio</li>
+                    <li><code>size()</code> - retorna tamanho</li>
+                    <li><code>get(indice)</code> - pega elemento</li>
+                    <li><code>add(item)</code> - adiciona elemento</li>
+                    <li><code>contains(item)</code> - verifica se contém</li>
+                    <li><code>remove(item)</code> - remove elemento</li>
+                    <li><code>indexOf(item)</code> - encontra posição</li>
+                    <li><code>clear()</code> - limpa lista</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 15: Respostas dos Exercícios -->
+        <div class="slide">
+            <div class="slide-number">15/22</div>
+            <h2>✅ Respostas dos Exercícios</h2>
+            
+            <div class="two-column">
+                <div class="example-box">
+                    <h3>🎯 Exercício 1 - Respostas:</h3>
+                    <div class="code-block">// Linha 8: 
+ArrayList&lt;Double&gt; notas = new ArrayList&lt;&gt;();
+
+// Linha 12:
+for (int i = 0; i &lt; 5; i++)
+
+// Linha 16:
+notas.add(nota);
+
+// Linha 20:
+for (Double nota : notas)
+
+// Linha 23:
+double media = soma / notas.size();
+
+// Linha 28 e 29:
+if (nota > maior) maior = nota;
+if (nota &lt; menor) menor = nota;
+
+// Linha 35:
+if (nota > media)</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🛒 Exercício 2 - Respostas:</h3>
+                    <div class="code-block">// Linha 9:
+ArrayList&lt;String&gt; lista = new ArrayList&lt;&gt;();
+
+// Linha 30:
+if (lista.isEmpty())
+
+// Linha 33:
+for (int i = 0; i &lt; lista.size(); i++)
+
+// Linha 34:
+System.out.println((i + 1) + ". " + lista.get(i));
+
+// Linha 41:
+lista.add(novoItem);
+
+// Linha 47:
+if (lista.contains(itemRemover))
+
+// Linha 48:
+lista.remove(itemRemover);</div>
+                </div>
+            </div>
+
+            <div class="exercise-box">
+                <h3>🎯 Desafio Extra: Sistema de Vendas</h3>
+                <p>Crie um <span class="highlight">Sistema de Controle de Vendas</span> usando Arrays e ArrayList:</p>
+                <ul>
+                    <li>🛍️ ArrayList&lt;String&gt; produtos (nome dos produtos)</li>
+                    <li>💰 ArrayList&lt;Double&gt; precos (preço de cada produto)</li>
+                    <li>📦 ArrayList&lt;Integer&gt; estoque (quantidade disponível)</li>
+                    <li>🧾 ArrayList&lt;String&gt; vendas (histórico de vendas)</li>
+                    <li>📊 Calcular: produto mais caro, total em estoque, faturamento</li>
+                    <li>🔍 Buscar produto por nome e verificar disponibilidade</li>
+                </ul>
+                <p><strong>💡 Dica:</strong> Use múltiplas ArrayList com mesmo índice para relacionar dados!</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Introdução ao Git -->
+        <div class="slide">
+            <div class="slide-number">16/22</div>
+            <h2>🔄 O que é Git?</h2>
+            
+            <div class="analogy-box">
+                <h3>📚 Analogia: Máquina do Tempo para Código</h3>
+                <p>Imagine ter uma <span class="highlight">máquina do tempo</span> que salva diferentes versões do seu projeto e permite voltar a qualquer momento!</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>🎯 Definição</h3>
+                    <p>Git é um <span class="highlight">sistema de controle de versão distribuído</span> que rastreia mudanças em arquivos e coordena trabalho entre múltiplas pessoas.</p>
+                    
+                    <h3>🚀 Por que usar Git?</h3>
+                    <ul>
+                        <li><strong>Histórico completo</strong> - nunca perca código</li>
+                        <li><strong>Trabalho em equipe</strong> - colaboração eficiente</li>
+                        <li><strong>Branches</strong> - desenvolva recursos isoladamente</li>
+                        <li><strong>Backup automático</strong> - código sempre seguro</li>
+                        <li><strong>Rastreabilidade</strong> - quem mudou o quê e quando</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🌍 Git no Mundo Real</h3>
+                    <ul>
+                        <li><strong>Linux:</strong> Criado por Linus Torvalds</li>
+                        <li><strong>GitHub:</strong> +100 milhões de repositórios</li>
+                        <li><strong>Empresas:</strong> Google, Microsoft, Facebook</li>
+                        <li><strong>Open Source:</strong> 99% dos projetos usam Git</li>
+                    </ul>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p style="font-size: 2rem;">📈</p>
+                        <p><strong>Git é o padrão da indústria!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Conceitos Fundamentais -->
+        <div class="slide">
+            <div class="slide-number">17/22</div>
+            <h2>🧠 Conceitos Fundamentais do Git</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>📂 Repository (Repositório)</h3>
+                    <p>Uma <span class="highlight">pasta especial</span> que o Git monitora. Contém todo o histórico do projeto.</p>
+                    <div class="code-block">git init meu-projeto</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>📸 Commit</h3>
+                    <p>Um <span class="highlight">"snapshot"</span> do seu código em um momento específico. Como uma foto do projeto.</p>
+                    <div class="code-block">git commit -m "Adiciona login de usuário"</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🌿 Branch</h3>
+                    <p>Uma <span class="highlight">linha paralela de desenvolvimento</span>. Permite trabalhar em recursos sem afetar o código principal.</p>
+                    <div class="code-block">git branch nova-feature</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🔄 Merge</h3>
+                    <p><span class="highlight">Combinar mudanças</span> de diferentes branches. Junta o trabalho de várias pessoas.</p>
+                    <div class="code-block">git merge nova-feature</div>
+                </div>
+            </div>
+
+            <div class="analogy-box">
+                <h3>🎬 Analogia: Produção de Filme</h3>
+                <p><strong>Repository</strong> = Estúdio | <strong>Commit</strong> = Cena gravada | <strong>Branch</strong> = Roteiro alternativo | <strong>Merge</strong> = Edição final</p>
+            </div>
+        </div>
+
+        <!-- Slide 17: Comandos Git Básicos -->
+        <div class="slide">
+            <div class="slide-number">17/22</div>
+            <h2>⚡ Comandos Git Essenciais</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>🏁 Inicialização</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-code">git init</span>
+                            <span>Cria novo repositório</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-code">git clone [url]</span>
+                            <span>Copia repositório remoto</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-code">git status</span>
+                            <span>Mostra estado atual</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>💾 Adicionar e Commitar</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-code">git add .</span>
+                            <span>Adiciona todos os arquivos</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-code">git add arquivo.java</span>
+                            <span>Adiciona arquivo específico</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-code">git commit -m "mensagem"</span>
+                            <span>Salva mudanças</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🌿 Trabalhando com Branches</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-code">git branch</span>
+                            <span>Lista branches</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-code">git checkout -b nome</span>
+                            <span>Cria e muda para branch</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-code">git merge branch</span>
+                            <span>Une branches</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h3>🎯 Fluxo Básico</h3>
+                <p><strong>1.</strong> Modifique arquivos → <strong>2.</strong> <code>git add</code> → <strong>3.</strong> <code>git commit</code> → <strong>4.</strong> <code>git push</code></p>
+            </div>
+        </div>
+
+        <!-- Slide 18: GitHub -->
+        <div class="slide">
+            <div class="slide-number">18/22</div>
+            <h2>🌐 GitHub - Rede Social do Código</h2>
+            
+            <div class="analogy-box">
+                <h3>☁️ Analogia: Google Drive para Programadores</h3>
+                <p>GitHub é como um <span class="highlight">Google Drive</span>, mas especialmente feito para código, com ferramentas de colaboração.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>🏢 O que é GitHub?</h3>
+                    <ul>
+                        <li><strong>Hosting</strong> - hospeda seus repositórios Git</li>
+                        <li><strong>Colaboração</strong> - trabalhe em equipe</li>
+                        <li><strong>Portfolio</strong> - mostre seus projetos</li>
+                        <li><strong>Open Source</strong> - contribua com projetos</li>
+                        <li><strong>CI/CD</strong> - automação e deploy</li>
+                    </ul>
+
+                    <h3>🚀 Comandos Remotos</h3>
+                    <div class="code-block">git remote add origin [url]
+git push origin main
+git pull origin main
+git push -u origin nova-branch</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>📊 GitHub Features</h3>
+                    <ul>
+                        <li><strong>Issues:</strong> Relatórios de bug e tarefas</li>
+                        <li><strong>Pull Requests:</strong> Revisão de código</li>
+                        <li><strong>Actions:</strong> Automação CI/CD</li>
+                        <li><strong>Wiki:</strong> Documentação</li>
+                        <li><strong>Releases:</strong> Versões do software</li>
+                        <li><strong>Projects:</strong> Gerenciamento de tarefas</li>
+                    </ul>
+                    
+                    <div class="analogy-box" style="margin-top: 20px;">
+                        <h3>💼 GitHub no Mercado</h3>
+                        <p><strong>Recrutadores</strong> olham seu GitHub como um <span class="highlight">portfólio profissional</span>!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Boas Práticas Git -->
+        <div class="slide">
+            <div class="slide-number">19/22</div>
+            <h2>✨ Boas Práticas Git</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>📝 Mensagens de Commit</h3>
+                    <div class="code-block">// ❌ Ruim
+git commit -m "mudança"
+git commit -m "fix"
+
+// ✅ Bom  
+git commit -m "feat: adiciona sistema de login"
+git commit -m "fix: corrige bug no cálculo de preços"
+git commit -m "docs: atualiza README com instruções"</div>
+                    
+                    <p><strong>Padrão:</strong> tipo(escopo): descrição</p>
+                    <ul>
+                        <li><code>feat</code>: nova funcionalidade</li>
+                        <li><code>fix</code>: correção de bug</li>
+                        <li><code>docs</code>: documentação</li>
+                        <li><code>style</code>: formatação</li>
+                        <li><code>refactor</code>: refatoração</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🌿 Estratégia de Branches</h3>
+                    <div class="code-block">main/master    ← Código em produção
+develop        ← Desenvolvimento principal
+feature/login  ← Nova funcionalidade
+hotfix/bug     ← Correção urgente</div>
+                    
+                    <h4>Git Flow:</h4>
+                    <ul>
+                        <li><strong>main:</strong> código estável</li>
+                        <li><strong>develop:</strong> integração contínua</li>
+                        <li><strong>feature/*:</strong> novas funcionalidades</li>
+                        <li><strong>hotfix/*:</strong> correções urgentes</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <h3>⚠️ O que NÃO fazer</h3>
+                    <ul>
+                        <li>Committar diretamente na <code>main</code></li>
+                        <li>Commits gigantes com muitas mudanças</li>
+                        <li>Mensagens vagas: "fix", "update"</li>
+                        <li>Commitar arquivos temporários</li>
+                        <li>Ignorar conflitos de merge</li>
+                    </ul>
+                </div>
+                
+                <div class="exercise-box">
+                    <h3>📋 .gitignore</h3>
+                    <div class="code-block"># Java
+*.class
+*.jar
+target/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Sistema
+.DS_Store
+Thumbs.db</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Comandos Avançados -->
+        <div class="slide">
+            <div class="slide-number">20/22</div>
+            <h2>🔧 Comandos Git Avançados</h2>
+            
+            <div class="grid">
+                <div class="example-box">
+                    <h3>🕐 Histórico e Logs</h3>
+                    <div class="code-block">git log --oneline          # Log resumido
+git log --graph            # Visualização gráfica
+git log --author="João"    # Commits por autor
+git show [commit-hash]     # Detalhes do commit
+git diff                   # Mudanças não commitadas
+git diff --staged          # Mudanças em staging</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>💾 Stash (Guardar Temporário)</h3>
+                    <div class="code-block">git stash                  # Guarda mudanças
+git stash list             # Lista stashes
+git stash pop              # Aplica último stash
+git stash apply stash@{0}  # Aplica stash específico
+git stash drop             # Remove stash</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>⏪ Reset e Revert</h3>
+                    <div class="code-block">git reset --soft HEAD~1    # Desfaz commit (mantém staging)
+git reset --hard HEAD~1    # Desfaz commit (perde mudanças)
+git revert [commit-hash]   # Cria commit que desfaz outro
+git checkout [commit-hash] # Volta para commit específico</div>
+                </div>
+                
+                <div class="warning-box">
+                    <h3>⚠️ Comandos Perigosos</h3>
+                    <ul>
+                        <li><strong>git reset --hard:</strong> Perde mudanças permanentemente</li>
+                        <li><strong>git push --force:</strong> Reescreve histórico remoto</li>
+                        <li><strong>git clean -fd:</strong> Remove arquivos não rastreados</li>
+                    </ul>
+                    <p>💡 <strong>Dica:</strong> Sempre faça backup antes de usar comandos destrutivos!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Resolução de Conflitos -->
+        <div class="slide">
+            <div class="slide-number">21/22</div>
+            <h2>⚔️ Resolvendo Conflitos</h2>
+            
+            <div class="analogy-box">
+                <h3>🤝 Analogia: Negociação</h3>
+                <p>Conflitos são como <span class="highlight">duas pessoas editando o mesmo documento</span>. O Git pede para você escolher qual versão manter.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box">
+                    <h3>❗ Como Conflitos Acontecem</h3>
+                    <ul>
+                        <li>Duas pessoas editam a mesma linha</li>
+                        <li>Merge de branches divergentes</li>
+                        <li>Pull de mudanças conflitantes</li>
+                        <li>Rebase com mudanças sobrepostas</li>
+                    </ul>
+                    
+                    <h4>🔍 Identificando Conflitos:</h4>
+                    <div class="code-block">git status          # Mostra arquivos em conflito
+git diff            # Visualiza diferenças</div>
+                </div>
+                
+                <div class="example-box">
+                    <h3>🛠️ Marcadores de Conflito</h3>
+                    <div class="code-block"><<<<<<< HEAD
+String nome = "João";
+=======
+String nome = "Maria";
+>>>>>>> feature/novo-nome</div>
+                    
+                    <p><strong>Significado:</strong></p>
+                    <ul>
+                        <li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code>: Sua versão atual</li>
+                        <li><code>=======</code>: Separador</li>
+                        <li><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch</code>: Versão do outro branch</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exercise-box">
+                <h3>🔧 Processo de Resolução</h3>
+                <div class="code-block">1. git pull origin main        # Identifica conflito
+2. [Editar arquivos manualmente] # Remove marcadores, escolhe versão
+3. git add arquivo.java         # Marca como resolvido
+4. git commit                   # Finaliza merge
+5. git push origin main         # Envia resolução</div>
+            </div>
+
+            <div class="warning-box">
+                <h3>💡 Dicas para Evitar Conflitos</h3>
+                <ul>
+                    <li><strong>Pull frequente:</strong> <code>git pull</code> antes de trabalhar</li>
+                    <li><strong>Commits pequenos:</strong> Mudanças menores = menos conflitos</li>
+                    <li><strong>Comunicação:</strong> Coordene com a equipe</li>
+                    <li><strong>Branches curtos:</strong> Merge rápido de features</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 22: Próximos Passos -->
+        <div class="slide">
+            <div class="slide-number">22/22</div>
+            <h2>🚀 Próximos Passos</h2>
+            
+            <div class="hero-section">
+                <h1>🎯 Parabéns!</h1>
+                <p style="font-size: 1.3rem; color: #6b7280; margin-bottom: 40px;">
+                    Você dominou Arrays, ArrayList e Git!
+                </p>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box">
+                    <h3>📚 Continue Estudando</h3>
+                    <h4>Java:</h4>
+                    <ul>
+                        <li>Collections (ArrayList, HashMap)</li>
+                        <li>Programação Orientada a Objetos</li>
+                        <li>Exception Handling</li>
+                        <li>Streams e Lambda</li>
+                    </ul>
+                    
+                    <h4>Git:</h4>
+                    <ul>
+                        <li>Git Flow avançado</li>
+                        <li>GitHub Actions (CI/CD)</li>
+                        <li>Git Hooks</li>
+                        <li>Conventional Commits</li>
+                    </ul>
+                </div>
+                
+                <div class="exercise-box">
+                    <h3>🎯 Projeto Final</h3>
+                    <p>Crie um projeto Java completo que:</p>
+                    <ul>
+                        <li>📊 Use Arrays e ArrayList para gerenciar dados</li>
+                        <li>🔄 Tenha pelo menos 3 métodos diferentes</li>
+                        <li>🎮 Interface de menu interativo com Scanner</li>
+                        <li>📁 Seja versionado com Git desde o início</li>
+                        <li>🌐 Esteja publicado no GitHub</li>
+                        <li>📝 Tenha commits bem descritos (feat, fix, docs)</li>
+                        <li>🌿 Use branches para desenvolver funcionalidades</li>
+                    </ul>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p><strong>🚀 Exemplo:</strong> Sistema de Biblioteca, Controle de Estoque, Agenda de Contatos</p>
+                        <p><strong>💪 Você consegue!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analogy-box">
+                <h3>🌟 Reflexão Final</h3>
+                <p><strong>Arrays</strong> e <strong>ArrayList</strong> organizam seus dados, <strong>Git</strong> organiza seu código. Com essas ferramentas, você está pronto para projetos reais!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="scrollToTop()">⬆️ Topo</button>
+        <button class="nav-btn" onclick="scrollToBottom()">⬇️ Final</button>
+    </div>
+
+    <script>
+        // Navegação suave
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        // Barra de progresso
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Animações ao carregar
+        window.addEventListener('load', function() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.style.animationDelay = (index * 0.1) + 's';
+                slide.classList.add('slide-enter');
+            });
+        });
+
+        // Navegação por teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Home') {
+                scrollToTop();
+            } else if (e.key === 'End') {
+                scrollToBottom();
+            } else if (e.key === 'ArrowUp') {
+                window.scrollBy(0, -100);
+            } else if (e.key === 'ArrowDown') {
+                window.scrollBy(0, 100);
+            }
+        });
+
+        // Smooth scroll entre slides
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

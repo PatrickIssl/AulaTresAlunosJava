@@ -1,0 +1,319 @@
+===========================================
+EXEMPLOS DE CÓDIGO JAVA - MÉTODOS E LAÇOS
+===========================================
+
+PROF. PATRICK ISSLER DAL LAGO
+Aula de Métodos e Laços de Repetição
+
+===========================================
+1. EXEMPLOS BÁSICOS DE MÉTODOS
+===========================================
+
+// Exemplo 1: Método sem parâmetros e sem retorno
+public static void digaOla() {
+    System.out.println("Olá, mundo!");
+}
+
+// Exemplo 2: Método com parâmetro e sem retorno
+public static void exibirMensagem(String nome) {
+    System.out.println("Olá, " + nome + "!");
+}
+
+// Exemplo 3: Método com parâmetros e com retorno
+public static int somar(int a, int b) {
+    return a + b;
+}
+
+// Exemplo 4: Método que calcula média
+public static double calcularMedia(double n1, double n2, double n3) {
+    return (n1 + n2 + n3) / 3;
+}
+
+// Exemplo 5: Método que verifica se número é par
+public static boolean ehPar(int numero) {
+    return numero % 2 == 0;
+}
+
+// Exemplo 6: Método que calcula o dobro
+public static int calcularDobro(int numero) {
+    return numero * 2;
+}
+
+===========================================
+2. PROGRAMA COMPLETO COM MÉTODOS
+===========================================
+
+public class ExemploMetodos {
+    
+    public static void main(String[] args) {
+        // Chamando métodos
+        digaOla();
+        exibirMensagem("Maria");
+        
+        int resultado = somar(10, 5);
+        System.out.println("Soma: " + resultado);
+        
+        double media = calcularMedia(8.5, 9.0, 7.5);
+        System.out.println("Média: " + media);
+        
+        boolean par = ehPar(10);
+        System.out.println("10 é par? " + par);
+        
+        int dobro = calcularDobro(7);
+        System.out.println("Dobro de 7: " + dobro);
+    }
+    
+    // Método sem parâmetros e sem retorno
+    public static void digaOla() {
+        System.out.println("Olá, mundo!");
+    }
+    
+    // Método com parâmetro e sem retorno
+    public static void exibirMensagem(String nome) {
+        System.out.println("Olá, " + nome + "!");
+    }
+    
+    // Método com parâmetros e com retorno
+    public static int somar(int a, int b) {
+        return a + b;
+    }
+    
+    // Método com parâmetros e com retorno (double)
+    public static double calcularMedia(double n1, double n2, double n3) {
+        return (n1 + n2 + n3) / 3;
+    }
+    
+    // Método que verifica se número é par
+    public static boolean ehPar(int numero) {
+        return numero % 2 == 0;
+    }
+    
+    // Método que calcula o dobro
+    public static int calcularDobro(int numero) {
+        return numero * 2;
+    }
+}
+
+===========================================
+3. EXEMPLOS DE LAÇOS DE REPETIÇÃO
+===========================================
+
+// LAÇO FOR - Contar de 1 a 10
+for (int i = 1; i <= 10; i++) {
+    System.out.print(i + " ");
+}
+// Saída: 1 2 3 4 5 6 7 8 9 10
+
+// LAÇO FOR - Contar de 10 a 1
+for (int i = 10; i >= 1; i--) {
+    System.out.print(i + " ");
+}
+// Saída: 10 9 8 7 6 5 4 3 2 1
+
+// LAÇO FOR - Números pares de 2 a 20
+for (int i = 2; i <= 20; i += 2) {
+    System.out.print(i + " ");
+}
+// Saída: 2 4 6 8 10 12 14 16 18 20
+
+// LAÇO FOR - Soma de 1 a 100
+int soma = 0;
+for (int i = 1; i <= 100; i++) {
+    soma += i;
+}
+System.out.println("Soma: " + soma);
+// Saída: Soma: 5050
+
+// LAÇO WHILE - Contador simples
+int contador = 1;
+while (contador <= 5) {
+    System.out.println("Contador: " + contador);
+    contador++;
+}
+// Saída:
+// Contador: 1
+// Contador: 2
+// Contador: 3
+// Contador: 4
+// Contador: 5
+
+// LAÇO DO-WHILE - Execute pelo menos uma vez
+int numero = 1;
+do {
+    System.out.println("Número: " + numero);
+    numero++;
+} while (numero <= 3);
+// Saída:
+// Número: 1
+// Número: 2
+// Número: 3
+
+===========================================
+4. EXEMPLOS PRÁTICOS COMBINANDO MÉTODOS E LAÇOS
+===========================================
+
+// Exemplo 1: Tabuada usando método e laço FOR
+public static void exibirTabuada(int numero) {
+    System.out.println("Tabuada do " + numero + ":");
+    for (int i = 1; i <= 10; i++) {
+        System.out.println(numero + " x " + i + " = " + (numero * i));
+    }
+}
+
+// Exemplo 2: Soma de números pares usando WHILE
+public static int somarPares(int limite) {
+    int soma = 0;
+    int numero = 2;
+    while (numero <= limite) {
+        soma += numero;
+        numero += 2;
+    }
+    return soma;
+}
+
+// Exemplo 3: Padrão de asteriscos usando FOR aninhado
+public static void exibirPadrao(int linhas) {
+    for (int i = 1; i <= linhas; i++) {
+        for (int j = 1; j <= i; j++) {
+            System.out.print("* ");
+        }
+        System.out.println();
+    }
+}
+
+// Exemplo 4: Verificar números primos
+public static boolean ehPrimo(int numero) {
+    if (numero <= 1) {
+        return false;
+    }
+    for (int i = 2; i <= numero / 2; i++) {
+        if (numero % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Exemplo 5: Calcular fatorial
+public static int calcularFatorial(int numero) {
+    int fatorial = 1;
+    for (int i = 1; i <= numero; i++) {
+        fatorial *= i;
+    }
+    return fatorial;
+}
+
+===========================================
+5. PROGRAMA COMPLETO COMBINANDO TUDO
+===========================================
+
+public class MetodosELacos {
+    
+    public static void main(String[] args) {
+        System.out.println("=== EXEMPLOS DE MÉTODOS E LAÇOS ===\n");
+        
+        // Testando métodos
+        exibirTabuada(7);
+        System.out.println();
+        
+        System.out.println("Soma dos pares até 10: " + somarPares(10));
+        System.out.println();
+        
+        System.out.println("Padrão de asteriscos:");
+        exibirPadrao(5);
+        System.out.println();
+        
+        // Verificando números primos
+        for (int i = 1; i <= 20; i++) {
+            if (ehPrimo(i)) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println(" (números primos de 1 a 20)");
+        System.out.println();
+        
+        // Calculando fatoriais
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Fatorial de " + i + ": " + calcularFatorial(i));
+        }
+    }
+    
+    // Método que usa FOR
+    public static void exibirTabuada(int numero) {
+        System.out.println("Tabuada do " + numero + ":");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(numero + " x " + i + " = " + (numero * i));
+        }
+    }
+    
+    // Método que usa WHILE
+    public static int somarPares(int limite) {
+        int soma = 0;
+        int numero = 2;
+        while (numero <= limite) {
+            soma += numero;
+            numero += 2;
+        }
+        return soma;
+    }
+    
+    // Método que usa FOR aninhado
+    public static void exibirPadrao(int linhas) {
+        for (int i = 1; i <= linhas; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+    
+    // Método que verifica se é primo
+    public static boolean ehPrimo(int numero) {
+        if (numero <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= numero / 2; i++) {
+            if (numero % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    // Método que calcula fatorial
+    public static int calcularFatorial(int numero) {
+        int fatorial = 1;
+        for (int i = 1; i <= numero; i++) {
+            fatorial *= i;
+        }
+        return fatorial;
+    }
+}
+
+===========================================
+6. DICAS IMPORTANTES
+===========================================
+
+✅ BOAS PRÁTICAS:
+- Use nomes descritivos para métodos (verbo + substantivo)
+- Um método deve fazer uma coisa só
+- Teste com valores pequenos primeiro
+- Comente código complexo
+- Use indentação correta
+
+❌ ERROS COMUNS:
+- Laços infinitos (esquecer de incrementar)
+- Métodos muito longos
+- Nomes confusos para métodos
+- Não testar o código
+- Esquecer o return em métodos que retornam valor
+
+🔧 DEBUGANDO:
+- Adicione prints para ver o que está acontecendo
+- Teste cada método separadamente
+- Use valores pequenos para testar laços
+- Verifique se as condições estão corretas
+
+===========================================
+FIM DOS EXEMPLOS
+===========================================

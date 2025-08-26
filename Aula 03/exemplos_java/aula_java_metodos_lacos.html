@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Java - Métodos e Laços de Repetição</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 60px;
+            background: white;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .slide-title {
+            font-size: 3.5rem;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .slide-subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .content {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .example-box {
+            background: #f7fafc;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .comparison-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .comparison-title {
+            font-size: 1.4rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .activity-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .activity-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .activity-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .activity-steps li {
+            counter-increment: step-counter;
+            margin: 15px 0;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .activity-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: white;
+            color: #667eea;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .key-point {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .key-point strong {
+            color: #856404;
+        }
+
+        .image-placeholder {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            .slide-title {
+                font-size: 2.5rem;
+            }
+            
+            .content {
+                font-size: 1.1rem;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">15</span>
+    </div>
+
+    <div class="presentation">
+        <!-- Slide 1: Título -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-header">
+                <h1 class="slide-title">Métodos e Laços de Repetição</h1>
+                <p class="slide-subtitle">Java para Iniciantes</p>
+            </div>
+            <div class="content">
+                <div style="text-align: center; margin: 40px 0;">
+                    <h2 style="color: #667eea; font-size: 2rem; margin-bottom: 20px;">Prof. Patrick Issler Dal Lago</h2>
+                    <p style="font-size: 1.4rem; color: #666;">Do básico ao prático</p>
+                </div>
+                
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎯 O que vamos aprender hoje:</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            O que são métodos e para que servem
+                        </li>
+                        <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            Como criar e usar métodos
+                        </li>
+                        <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            Laços de repetição (for, while, do-while)
+                        </li>
+                        <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            Atividade prática no final
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: O que é um Método -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <h1 class="slide-title">O que é um Método?</h1>
+                <p class="slide-subtitle">Conceito fundamental em programação</p>
+            </div>
+            <div class="content">
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">🧠 Analogia: Receita de Bolo</h3>
+                    <p>Imagine que você tem uma <span class="highlight">receita de bolo</span>:</p>
+                    <ul style="margin: 20px 0; padding-left: 30px;">
+                        <li>Você sabe os ingredientes necessários (parâmetros)</li>
+                        <li>Você segue os passos (código do método)</li>
+                        <li>No final, você tem um bolo (retorno)</li>
+                        <li>Pode usar essa receita sempre que quiser (reutilização)</li>
+                    </ul>
+                </div>
+
+                <div class="key-point">
+                    <strong>Definição:</strong> Um método é um bloco de código que executa uma tarefa específica e pode ser chamado sempre que necessário.
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">✅ Vantagens</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Organiza o código</li>
+                            <li>Evita repetição</li>
+                            <li>Facilita manutenção</li>
+                            <li>Torna o código legível</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">🎯 Quando usar</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Quando uma tarefa se repete</li>
+                            <li>Para organizar funcionalidades</li>
+                            <li>Para facilitar testes</li>
+                            <li>Para reutilizar código</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Estrutura de um Método -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <h1 class="slide-title">Estrutura de um Método</h1>
+                <p class="slide-subtitle">Como criar métodos em Java</p>
+            </div>
+            <div class="content">
+                <div class="code-block">
+public static tipoDeRetorno nomeDoMetodo(tipoParametro nomeParametro) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Código do método aqui<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return valor; // Se não for void<br>
+}
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">📝 Partes do Método</div>
+                        <ul style="padding-left: 20px;">
+                            <li><strong>public:</strong> Acesso público</li>
+                            <li><strong>static:</strong> Método da classe</li>
+                            <li><strong>tipoDeRetorno:</strong> int, String, void, etc.</li>
+                            <li><strong>nomeDoMetodo:</strong> Nome da função</li>
+                            <li><strong>parâmetros:</strong> Dados de entrada</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">🔍 Exemplo Prático</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+public static int somar(int a, int b) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return a + b;<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <strong>Dica:</strong> O nome do método deve ser um verbo que descreve o que ele faz (somar, calcular, exibir, etc.)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Tipos de Métodos -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <h1 class="slide-title">Tipos de Métodos</h1>
+                <p class="slide-subtitle">Diferentes formas de criar métodos</p>
+            </div>
+            <div class="content">
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">1️⃣ Sem parâmetros, sem retorno</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+public static void digaOla() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Olá, mundo!");<br>
+}
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Chamada: <code>digaOla();</code></p>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">2️⃣ Com parâmetros, sem retorno</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+public static void exibirMensagem(String nome) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Olá, " + nome + "!");<br>
+}
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Chamada: <code>exibirMensagem("João");</code></p>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">3️⃣ Com parâmetros, com retorno</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+public static int somar(int a, int b) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return a + b;<br>
+}
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Chamada: <code>int resultado = somar(5, 3);</code></p>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">4️⃣ Sem parâmetros, com retorno</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+public static int obterNumero() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 42;<br>
+}
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Chamada: <code>int numero = obterNumero();</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Exemplo Completo -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <h1 class="slide-title">Exemplo Completo</h1>
+                <p class="slide-subtitle">Programa com diferentes tipos de métodos</p>
+            </div>
+            <div class="content">
+                <div class="code-block">
+public class ExemploMetodos {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Chamando métodos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;digaOla();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exibirMensagem("Maria");<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int resultado = somar(10, 5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Soma: " + resultado);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double media = calcularMedia(8.5, 9.0, 7.5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Média: " + media);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Método sem parâmetros e sem retorno<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void digaOla() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Olá, mundo!");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Método com parâmetro e sem retorno<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void exibirMensagem(String nome) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Olá, " + nome + "!");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Método com parâmetros e com retorno<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static int somar(int a, int b) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return a + b;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Método com parâmetros e com retorno (double)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static double calcularMedia(double n1, double n2, double n3) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return (n1 + n2 + n3) / 3;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                </div>
+
+                <div class="key-point">
+                    <strong>Saída do programa:</strong><br>
+                    Olá, mundo!<br>
+                    Olá, Maria!<br>
+                    Soma: 15<br>
+                    Média: 8.333333333333334
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Introdução aos Laços -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <h1 class="slide-title">Laços de Repetição</h1>
+                <p class="slide-subtitle">Repetindo ações automaticamente</p>
+            </div>
+            <div class="content">
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">🔄 Por que usar laços?</h3>
+                    <p>Imagine que você precisa:</p>
+                    <ul style="margin: 20px 0; padding-left: 30px;">
+                        <li>Contar de 1 até 100</li>
+                        <li>Exibir os números pares de 2 até 50</li>
+                        <li>Calcular a soma de 1000 números</li>
+                        <li>Repetir uma ação várias vezes</li>
+                    </ul>
+                    <p><strong>Sem laços:</strong> Código repetitivo e chato de escrever</p>
+                    <p><strong>Com laços:</strong> Código limpo e eficiente!</p>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">🎯 Tipos de Laços</div>
+                        <ul style="padding-left: 20px;">
+                            <li><strong>for:</strong> Quando você sabe quantas vezes repetir</li>
+                            <li><strong>while:</strong> Enquanto uma condição for verdadeira</li>
+                            <li><strong>do-while:</strong> Execute pelo menos uma vez, depois verifique</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">⚠️ Cuidado!</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Laços infinitos podem travar o programa</li>
+                            <li>Sempre tenha uma condição de parada</li>
+                            <li>Teste seus laços com valores pequenos primeiro</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Laço FOR -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <h1 class="slide-title">Laço FOR</h1>
+                <p class="slide-subtitle">Para quando você sabe quantas vezes repetir</p>
+            </div>
+            <div class="content">
+                <div class="code-block">
+for (inicialização; condição; incremento) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// código a ser repetido<br>
+}
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">📝 Estrutura do FOR</div>
+                        <ul style="padding-left: 20px;">
+                            <li><strong>inicialização:</strong> int i = 0</li>
+                            <li><strong>condição:</strong> i < 10</li>
+                            <li><strong>incremento:</strong> i++</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">🔍 Exemplo Simples</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+for (int i = 1; i <= 5; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Número: " + i);<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Saída do exemplo:</h3>
+                    <div class="code-block" style="background: #f8f9fa; color: #333;">
+Número: 1<br>
+Número: 2<br>
+Número: 3<br>
+Número: 4<br>
+Número: 5
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <strong>Dica:</strong> O laço for é perfeito quando você sabe exatamente quantas vezes quer repetir algo!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Exemplos com FOR -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <h1 class="slide-title">Exemplos com FOR</h1>
+                <p class="slide-subtitle">Diferentes usos do laço for</p>
+            </div>
+            <div class="content">
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">1️⃣ Contar de 1 a 10</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+for (int i = 1; i <= 10; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(i + " ");<br>
+}<br>
+// Saída: 1 2 3 4 5 6 7 8 9 10
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">2️⃣ Contar de 10 a 1</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+for (int i = 10; i >= 1; i--) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(i + " ");<br>
+}<br>
+// Saída: 10 9 8 7 6 5 4 3 2 1
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">3️⃣ Números pares de 2 a 20</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+for (int i = 2; i <= 20; i += 2) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(i + " ");<br>
+}<br>
+// Saída: 2 4 6 8 10 12 14 16 18 20
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">4️⃣ Soma de 1 a 100</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+int soma = 0;<br>
+for (int i = 1; i <= 100; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;soma += i;<br>
+}<br>
+System.out.println("Soma: " + soma);<br>
+// Saída: Soma: 5050
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Laço WHILE -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <h1 class="slide-title">Laço WHILE</h1>
+                <p class="slide-subtitle">Enquanto uma condição for verdadeira</p>
+            </div>
+            <div class="content">
+                <div class="code-block">
+while (condição) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// código a ser repetido<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// IMPORTANTE: alterar a condição dentro do laço<br>
+}
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">📝 Como funciona</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Verifica a condição ANTES de executar</li>
+                            <li>Se verdadeira, executa o código</li>
+                            <li>Volta para verificar a condição novamente</li>
+                            <li>Para quando a condição for falsa</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">🔍 Exemplo Simples</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+int contador = 1;<br>
+while (contador <= 5) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Contador: " + contador);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;contador++;<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <strong>⚠️ Cuidado com laços infinitos!</strong><br>
+                    Sempre altere a variável da condição dentro do laço, senão ele nunca para!
+                </div>
+
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Quando usar WHILE:</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Quando você não sabe quantas vezes vai repetir</li>
+                        <li>Para ler dados até encontrar um valor específico</li>
+                        <li>Para processar dados até uma condição ser atendida</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Laço DO-WHILE -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <h1 class="slide-title">Laço DO-WHILE</h1>
+                <p class="slide-subtitle">Execute pelo menos uma vez</p>
+            </div>
+            <div class="content">
+                <div class="code-block">
+do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// código a ser repetido<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// IMPORTANTE: alterar a condição dentro do laço<br>
+} while (condição);
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">📝 Diferença do WHILE</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Executa o código PRIMEIRO</li>
+                            <li>Depois verifica a condição</li>
+                            <li>Se verdadeira, repete</li>
+                            <li>Se falsa, para</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">🔍 Exemplo Simples</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+int numero = 1;<br>
+do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Número: " + numero);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numero++;<br>
+} while (numero <= 3);
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Quando usar DO-WHILE:</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Quando você quer executar pelo menos uma vez</li>
+                        <li>Para menus de opções</li>
+                        <li>Para validação de entrada do usuário</li>
+                        <li>Quando a condição depende do resultado da execução</li>
+                    </ul>
+                </div>
+
+                <div class="key-point">
+                    <strong>Comparação:</strong><br>
+                    <strong>WHILE:</strong> "Enquanto X for verdadeiro, faça Y"<br>
+                    <strong>DO-WHILE:</strong> "Faça Y, e continue fazendo enquanto X for verdadeiro"
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Exemplos Práticos -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <h1 class="slide-title">Exemplos Práticos</h1>
+                <p class="slide-subtitle">Aplicando o que aprendemos</p>
+            </div>
+            <div class="content">
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">🔢 Tabuada com FOR</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+int numero = 7;<br>
+for (int i = 1; i <= 10; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(numero + " x " + i + " = " + (numero * i));<br>
+}
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">🎲 Adivinhe o número com WHILE</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+int numeroSecreto = 42;<br>
+int tentativa = 0;<br>
+while (tentativa != numeroSecreto) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tentativa++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (tentativa == numeroSecreto) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Encontrei! É o " + tentativa);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">📊 Média com DO-WHILE</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+int soma = 0;<br>
+int contador = 0;<br>
+int numero;<br>
+do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numero = 10; // Simulando entrada<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (numero != 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;soma += numero;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contador++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+} while (numero != 0);<br>
+double media = (double) soma / contador;<br>
+System.out.println("Média: " + media);
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">⭐ Padrão com FOR</div>
+                        <div class="code-block" style="font-size: 0.9rem;">
+for (int i = 1; i <= 5; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for (int j = 1; j <= i; j++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print("* ");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println();<br>
+}<br>
+// Saída:<br>
+// * <br>
+// * * <br>
+// * * * <br>
+// * * * * <br>
+// * * * * *
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Métodos + Laços -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <h1 class="slide-title">Métodos + Laços</h1>
+                <p class="slide-subtitle">Combinando os conceitos</p>
+            </div>
+            <div class="content">
+                <div class="code-block">
+public class MetodosELacos {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exibirTabuada(7);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Soma dos pares: " + somarPares(10));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exibirPadrao(5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Método que usa FOR<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void exibirTabuada(int numero) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Tabuada do " + numero + ":");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int i = 1; i <= 10; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(numero + " x " + i + " = " + (numero * i));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Método que usa WHILE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static int somarPares(int limite) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int soma = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int numero = 2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (numero <= limite) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;soma += numero;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numero += 2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return soma;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Método que usa FOR aninhado<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void exibirPadrao(int linhas) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int i = 1; i <= linhas; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int j = 1; j <= i; j++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print("* ");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                </div>
+
+                <div class="key-point">
+                    <strong>💡 Dica:</strong> Combine métodos e laços para criar código mais organizado e reutilizável!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Dicas Importantes -->
+        <div class="slide" id="slide-13">
+            <div class="slide-header">
+                <h1 class="slide-title">Dicas Importantes</h1>
+                <p class="slide-subtitle">Evitando erros comuns</p>
+            </div>
+            <div class="content">
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">✅ Boas Práticas</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Use nomes descritivos para métodos</li>
+                            <li>Um método deve fazer uma coisa só</li>
+                            <li>Teste com valores pequenos primeiro</li>
+                            <li>Comente código complexo</li>
+                            <li>Use indentação correta</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">❌ Erros Comuns</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Laços infinitos</li>
+                            <li>Esquecer de incrementar variáveis</li>
+                            <li>Métodos muito longos</li>
+                            <li>Nomes confusos</li>
+                            <li>Não testar o código</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🔧 Debugando Laços</h3>
+                    <div class="code-block" style="font-size: 0.9rem;">
+// Para debugar, adicione prints:<br>
+for (int i = 1; i <= 5; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("i = " + i); // Debug<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// seu código aqui<br>
+}
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <strong>🎯 Lembre-se:</strong> Programação é prática! Quanto mais você exercitar, melhor ficará.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Atividade Prática -->
+        <div class="slide" id="slide-14">
+            <div class="slide-header">
+                <h1 class="slide-title">Atividade Prática</h1>
+                <p class="slide-subtitle">Hora de colocar em prática!</p>
+            </div>
+            <div class="content">
+                <div class="activity-box">
+                    <h2 class="activity-title">🎯 Calculadora de Notas</h2>
+                    
+                    <h3 style="margin: 20px 0; color: white;">Crie um programa que:</h3>
+                    
+                    <ol class="activity-steps">
+                        <li>Crie um método <code>calcularMedia</code> que receba 3 notas e retorne a média</li>
+                        <li>Crie um método <code>verificarAprovacao</code> que receba a média e retorne "Aprovado" se >= 7, senão "Reprovado"</li>
+                        <li>Crie um método <code>exibirResultado</code> que receba o nome do aluno, a média e o status e exiba uma mensagem formatada</li>
+                        <li>No main, use um laço FOR para processar 3 alunos diferentes</li>
+                        <li>Para cada aluno, peça as 3 notas, calcule a média, verifique aprovação e exiba o resultado</li>
+                    </ol>
+
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                        <h4 style="color: white; margin-bottom: 15px;">📝 Exemplo de saída:</h4>
+                        <div style="background: white; color: #333; padding: 15px; border-radius: 5px; font-family: monospace;">
+Aluno: João<br>
+Nota 1: 8.5<br>
+Nota 2: 7.0<br>
+Nota 3: 9.0<br>
+Média: 8.17<br>
+Status: Aprovado<br>
+<br>
+Aluno: Maria<br>
+Nota 1: 6.0<br>
+Nota 2: 5.5<br>
+Nota 3: 7.0<br>
+Média: 6.17<br>
+Status: Reprovado
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-point">
+                    <strong>💡 Dica:</strong> Comece criando os métodos um por um e testando cada um!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Resumo e Próximos Passos -->
+        <div class="slide" id="slide-15">
+            <div class="slide-header">
+                <h1 class="slide-title">Resumo e Próximos Passos</h1>
+                <p class="slide-subtitle">O que aprendemos hoje</p>
+            </div>
+            <div class="content">
+                <div class="comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-title">📚 O que aprendemos</div>
+                        <ul style="padding-left: 20px;">
+                            <li>O que são métodos e como criá-los</li>
+                            <li>Diferentes tipos de métodos (com/sem parâmetros, com/sem retorno)</li>
+                            <li>Laços de repetição: FOR, WHILE, DO-WHILE</li>
+                            <li>Como combinar métodos e laços</li>
+                            <li>Boas práticas de programação</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-title">🚀 Próximos passos</div>
+                        <ul style="padding-left: 20px;">
+                            <li>Arrays e vetores</li>
+                            <li>Strings e manipulação de texto</li>
+                            <li>Classes e objetos</li>
+                            <li>Herança e polimorfismo</li>
+                            <li>Tratamento de exceções</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Exercícios para praticar em casa:</h3>
+                    <ul style="padding-left: 20px;">
+                        <li>Crie um método que calcule o fatorial de um número</li>
+                        <li>Faça um programa que exiba os números primos de 1 a 100</li>
+                        <li>Crie um método que inverta uma string</li>
+                        <li>Faça um programa que simule um jogo de adivinhação</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin: 40px 0;">
+                    <h2 style="color: #667eea; font-size: 2rem; margin-bottom: 20px;">Parabéns! 🎉</h2>
+                    <p style="font-size: 1.3rem; color: #666;">Vocês deram um grande passo na programação Java!</p>
+                    <p style="font-size: 1.1rem; color: #888; margin-top: 10px;">Continuem praticando e não tenham medo de errar!</p>
+                </div>
+
+                <div class="key-point">
+                    <strong>📞 Dúvidas?</strong> Estou aqui para ajudar! Continuem praticando e não desistam!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" id="prev-btn">← Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()" id="next-btn">Próximo →</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 15;
+
+        function showSlide(slideNumber) {
+            // Esconder todas as slides
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            // Mostrar a slide atual
+            document.getElementById(`slide-${slideNumber}`).classList.add('active');
+
+            // Atualizar contador
+            document.getElementById('current-slide').textContent = slideNumber;
+            document.getElementById('total-slides').textContent = totalSlides;
+
+            // Atualizar botões
+            document.getElementById('prev-btn').disabled = slideNumber === 1;
+            document.getElementById('next-btn').disabled = slideNumber === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Navegação com teclado
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Inicializar
+        showSlide(1);
+    </script>
+</body>
+</html>
